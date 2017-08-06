@@ -4,12 +4,14 @@
 # to commit:
 # git add .
 # git commit -m "glorious comment"
-# to push to github:  git push -u origin master
+# git push -u origin master
 # then in c9.io: clone the github in the workspace settings.
+# in c9.io: git pull origin master
 
 import os
 from flask import Flask, send_from_directory, redirect
 from gevent import monkey, pywsgi
+from myAPI import x
 monkey.patch_all()
 
 
@@ -31,12 +33,17 @@ def create_app():
         return send_from_directory(os.path.join(os.getcwd(), "static/dist"),
                                    path)
 
-    return app
 
+    # the return can only be a string as far as I know.
+    @app.route('/get_testing', methods=['GET'])
+    def get_testing():
+        return x
+
+    return app
 
 if __name__ == "__main__":
     app = create_app()
-    server = pywsgi.WSGIServer(("0.0.0.0", 8080), app)
+    server = pywsgi.WSGIServer(("0.0.0.0", 8080), app)  # 8080 req'd for c9.io
     server.serve_forever()
 else:
     app = create_app()
