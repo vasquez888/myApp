@@ -1,3 +1,12 @@
+# in c9.io:  sudo pip3 install flask
+# in c9.io:  do: sudo pip3 install gevent.
+
+# to commit:
+# git add .
+# git commit -m "glorious comment"
+# to push to github:  git push -u origin master
+# then in c9.io: clone the github in the workspace settings.
+
 import os
 from flask import Flask, send_from_directory, redirect
 from gevent import monkey, pywsgi
